@@ -1,0 +1,29 @@
+2024-03-06 09:33:57,796 - ERROR - Can't connect with MES APP
+2024-03-06 09:35:36,046 - ERROR - Can't connect with MES APP
+2024-03-06 09:36:05,076 - ERROR - Can't connect with MES APP
+2024-03-06 09:38:36,531 - INFO - 
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+2024-03-06 09:38:36,532 - INFO - --> Received scan signal from PLC
+2024-03-06 09:38:36,533 - INFO - --> ------ SCAN SIGNAL -------
+2024-03-06 09:38:42,239 - INFO - --> RESULT SCAN
+2024-03-06 09:38:42,239 - ERROR - FAILED
+2024-03-06 09:38:42,262 - ERROR - ------FAIL SCAN-------
+2024-03-06 09:38:42,263 - ERROR - Data SN: None
+2024-03-06 09:38:52,873 - INFO - 
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+2024-03-06 09:38:52,873 - INFO - --> Received scan signal from PLC
+2024-03-06 09:38:52,873 - INFO - --> ------ SCAN SIGNAL -------
+2024-03-06 09:38:58,634 - INFO - --> RESULT SCAN
+2024-03-06 09:38:58,634 - ERROR - FAILED
+2024-03-06 09:38:58,658 - ERROR - ------FAIL SCAN-------
+2024-03-06 09:38:58,658 - ERROR - Data SN: None
+2024-03-06 09:39:02,390 - INFO - 
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+2024-03-06 09:39:02,390 - INFO - --> Received scan signal from PLC
+2024-03-06 09:39:02,390 - INFO - --> ------ SCAN SIGNAL -------
+2024-03-06 09:39:08,087 - INFO - --> RESULT SCAN
+2024-03-06 09:39:08,087 - ERROR - FAILED
+2024-03-06 09:39:08,113 - ERROR - ------FAIL SCAN-------
+2024-03-06 09:39:08,113 - ERROR - Data SN: None
+2024-03-06 09:39:43,962 - ERROR - Can't connect with MES APP
+2024-03-06 09:43:17,936 - ERROR - Can't connect with MES APP

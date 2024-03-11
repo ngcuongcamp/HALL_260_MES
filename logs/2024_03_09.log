@@ -1,0 +1,25 @@
+2024-03-09 14:35:07,170 - ERROR - Can't connect with MES APP
+2024-03-09 16:57:13,842 - ERROR - Can't connect with MES APP
+2024-03-09 16:58:05,908 - ERROR - Can't connect with MES APP
+2024-03-09 16:59:29,985 - ERROR - Can't connect with MES APP
+2024-03-09 16:59:31,416 - INFO - 
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+2024-03-09 16:59:31,416 - INFO - --> Received scan signal from PLC
+2024-03-09 16:59:31,416 - INFO - --> ------ SCAN SIGNAL -------
+2024-03-09 16:59:31,628 - INFO - --> RESULT SCAN
+2024-03-09 16:59:31,628 - INFO - PASS SCAN
+2024-03-09 16:59:31,628 - INFO - ----------- SEND TO SFC -----------
+2024-03-09 16:59:31,778 - WARNING - Wrong PLC Signal
+2024-03-09 16:59:31,793 - WARNING - Wrong PLC Signal
+2024-03-09 16:59:32,094 - INFO - --> Send Data SN:  xxxxxxxxxx
+2024-03-09 16:59:32,233 - ERROR - SIGNAL FAIL CHECK CODE DATA FROM mes
+2024-03-09 16:59:35,923 - INFO - 
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+2024-03-09 16:59:35,923 - INFO - --> Received scan signal from PLC
+2024-03-09 16:59:35,923 - INFO - --> ------ SCAN SIGNAL -------
+2024-03-09 16:59:36,135 - INFO - --> RESULT SCAN
+2024-03-09 16:59:36,135 - INFO - PASS SCAN
+2024-03-09 16:59:36,135 - INFO - ----------- SEND TO SFC -----------
+2024-03-09 16:59:36,296 - WARNING - Wrong PLC Signal
+2024-03-09 16:59:36,481 - INFO - --> Send Data SN:  xxxxxxxxxx
+2024-03-09 16:59:38,612 - ERROR - SIGNAL FAIL CHECK CODE DATA FROM mes
