@@ -427,3 +427,14 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 2024-03-11 11:47:13,036 - WARNING - Wrong PLC Signal
 2024-03-11 11:47:13,222 - INFO - --> Send Data SN:  xxxxxxxxxx
 2024-03-11 11:47:15,355 - ERROR - SIGNAL FAIL CHECK CODE DATA FROM mes
+2024-03-11 13:25:09,269 - ERROR - Can't connect with MES APP
+2024-03-11 13:25:39,176 - ERROR - Can't connect with MES APP
+2024-03-11 13:25:45,978 - ERROR - Can't connect with MES APP
+2024-03-11 13:26:31,850 - ERROR - Can't connect with MES APP
+2024-03-11 13:26:39,747 - WARNING - Received signal PLC when program is processing.
+2024-03-11 13:26:41,165 - WARNING - Received signal PLC when program is processing.
+2024-03-11 13:26:42,134 - WARNING - Received signal PLC when program is processing.
+2024-03-11 13:26:42,367 - WARNING - Received signal PLC when program is processing.
+2024-03-11 13:26:42,663 - WARNING - Received signal PLC when program is processing.
+2024-03-11 13:26:42,909 - WARNING - Received signal PLC when program is processing.
+2024-03-11 13:26:43,094 - WARNING - Received signal PLC when program is processing.

@@ -5,7 +5,7 @@ from Thread_Camera import CameraThread
 from connect_mes import *
 from reader import *
 from UI_handler import *
-from capture_and_compare_image import *
+from capture_and_process import *
 
 
 class MyApplication(QMainWindow):

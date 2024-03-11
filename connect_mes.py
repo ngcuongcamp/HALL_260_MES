@@ -34,6 +34,7 @@ def get_name_mes_app(self):
 
         if is_found == False:
             set_error_mes_state(self)
+            self.is_processing = True
             print("Can't connect with MES APP")
             logger.error("Can't connect with MES APP")
     except Exception as E:

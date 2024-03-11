@@ -5,7 +5,7 @@ from Thread_Camera import CameraThread
 from connect_mes import *
 from reader import *
 from UI_handler import *
-from capture_and_compare_image import *
+from capture_and_process import *
 
 
 class MyApplication(QMainWindow):
@@ -92,7 +92,7 @@ class MyApplication(QMainWindow):
             if self.data_scan1 is None:
                 processed = process_frame(frame=self.frame1)
                 self.data_scan1 = read_dmt_loop(self, processed)
-                self.data_scan1 = "xxxxxxxxxx"
+                # self.data_scan1 = "xxxxxxxxxx"
                 if self.data_scan1:
                     break
         cmd_printer("INFO", "--> RESULT SCAN")
