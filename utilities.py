@@ -97,7 +97,12 @@ def read_config(self):
     self.MES_BACKEND = config["MES"]["BACKEND"]
 
     self.MES_SN_INPUT_ID = config["MES"]["MES_SN_INPUT_ID"]
-    self.MES_SN_INPUT_POSITION = config["MES"]["MES_SN_INPUT_POSITION"]
+    MES_SN_INPUT_POSITION_STRING = config["MES"]["MES_SN_INPUT_POSITION"]
+    self.MES_SN_INPUT_POSITION = tuple(
+        map(int, MES_SN_INPUT_POSITION_STRING.split(", "))
+    )
+
+    print(self.MES_SN_INPUT_POSITION)
 
 
 handle_remove_old_folders()
