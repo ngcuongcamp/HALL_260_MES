@@ -79,10 +79,9 @@ class MyApplication(QMainWindow):
             cmd_printer("WARNING", f"Signal PLC: {data}")
 
     def scan_product_code(self):
-        # set_default_state(self)
         self.set_default_variables()
         i = 0
-        stime = time.time()
+        stime_scan = time.time()
         while i < self.SCAN_LIMIT:
             i = i + 1
             gray_frame = process_frame(frame=self.frame1)
@@ -97,9 +96,7 @@ class MyApplication(QMainWindow):
                     break
         cmd_printer("INFO", "--> RESULT SCAN")
         logger.info("--> RESULT SCAN")
-        cmd_printer(
-            "INFO", f"-----> spends {round(time.time() - stime,3)}s to read code"
-        )
+        cmd_printer("INFO", f"-----> spends {(time.time() - stime_scan)}s to read code")
 
         # IF FAIL SCAN
         if self.data_scan1 is None:
@@ -133,16 +130,14 @@ class MyApplication(QMainWindow):
             cmd_printer("INFO", "----------- SEND TO SFC -----------")
             logger.info("----------- SEND TO SFC -----------")
 
-            percent_matching = 0
+            stime_connect = time.time()
+
             # capture old screenshot
             old_screenshot = capture_screen(self.MES_SN_INPUT_POSITION)
-
             # send sn data
             send_data_to_mes(self, self.data_scan1)
             cmd_printer("INFO", f"--> Send Data SN:  {self.data_scan1}")
             logger.info(f"--> Send Data SN:  {self.data_scan1}")
-
-            time.sleep(self.TIME_SLEEP)
 
             # caputure new screenshot
             stime = time.time()
@@ -150,11 +145,8 @@ class MyApplication(QMainWindow):
             while time.time() - stime <= self.MAX_WAIT:
                 new_screenshot = capture_screen(self.MES_SN_INPUT_POSITION)
 
-                # if compare_image_ssim(old_screenshot, new_screenshot) < 0.94:
-                percent_matching = compare_image_ssim(old_screenshot, new_screenshot)
-                if percent_matching < 0.80:
-                    print(percent_matching)
-
+                is_matching = compare_image_ssim(old_screenshot, new_screenshot)
+                if is_matching == False:
                     # PASS MES
                     self.THREAD_PLC.send_signal_to_plc(b"1")
 
@@ -164,9 +156,7 @@ class MyApplication(QMainWindow):
                         self.state_ui = True
                     break
 
-            cmd_printer("INFO", f"time used to wait: {round(time.time() - stime, 3)}s")
-
-            if percent_matching > 0.9:
+            if is_matching == True:
                 # xxxxxxxxxxxxxxxxx
                 self.THREAD_PLC.send_signal_to_plc(b"2")
                 self.is_processing = False
@@ -175,7 +165,10 @@ class MyApplication(QMainWindow):
                 if self.state_ui == True or self.state_ui == None:
                     set_fail_state(self)
                     self.state_ui = False
-            print(f"Percent matching: {percent_matching * 100}%")
+
+            cmd_printer(
+                "INFO", f"spends: {(time.time() - stime_connect)}s to working with Mes"
+            )
 
             self.set_default_variables()
             self.is_processing = False
