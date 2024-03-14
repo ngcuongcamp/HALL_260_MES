@@ -134,6 +134,7 @@ class MyApplication(QMainWindow):
 
             # capture old screenshot
             old_screenshot = capture_screen(self.MES_SN_INPUT_POSITION)
+            cv2.imwrite("./temp/old_screenshot.png", old_screenshot)
             # send sn data
             send_data_to_mes(self, self.data_scan1)
             cmd_printer("INFO", f"--> Send Data SN:  {self.data_scan1}")
@@ -148,6 +149,8 @@ class MyApplication(QMainWindow):
                 is_matching = compare_image_ssim(old_screenshot, new_screenshot)
                 if is_matching == False:
                     # PASS MES
+                    cv2.imwrite("./temp/new_screenshot.png", new_screenshot)
+
                     self.THREAD_PLC.send_signal_to_plc(b"1")
 
                     cmd_printer("SUCCESS", "PASS MES")
@@ -157,6 +160,7 @@ class MyApplication(QMainWindow):
                     break
 
             if is_matching == True:
+                cv2.imwrite("./temp/new_screenshot.png", new_screenshot)
                 # xxxxxxxxxxxxxxxxx
                 self.THREAD_PLC.send_signal_to_plc(b"2")
                 self.is_processing = False

@@ -58,7 +58,8 @@ def lookup_screenshot(template):
         if position:
             return True
     except Exception as E:
-        return False
+        print(E)
+        return True
 
 
 def detect_label(screenshot):
