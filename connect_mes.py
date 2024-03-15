@@ -20,17 +20,16 @@ def get_name_mes_app(self):
             ):
                 self.MES_APP_NAME = w.window_text()
                 is_found = True
-
                 break
 
-        if is_found == True:
-            export = pywinauto.findwindows.find_windows(best_match=self.MES_APP_NAME)
-            if export:
-                app = Application(backend=self.MES_BACKEND).connect(handle=export[0])
-                dialog = app.window(title=self.MES_APP_NAME)
-                txtSN_element = dialog.child_window(auto_id=self.MES_SN_INPUT_ID)
-                self.MES_SN_INPUT_POSITION = txtSN_element.rectangle()
-                print("Position of txtSN: ", self.MES_SN_INPUT_POSITION)
+        # if is_found == True:
+        #     export = pywinauto.findwindows.find_windows(best_match=self.MES_APP_NAME)
+        #     if export:
+        #         app = Application(backend=self.MES_BACKEND).connect(handle=export[0])
+        #         dialog = app.window(title=self.MES_APP_NAME)
+        #         txtSN_element = dialog.child_window(auto_id=self.MES_SN_INPUT_ID)
+        #         self.MES_SN_INPUT_POSITION = txtSN_element.rectangle()
+        #         print("Position of txtSN: ", self.MES_SN_INPUT_POSITION)
 
         if is_found == False:
             set_error_mes_state(self)

@@ -123,21 +123,24 @@ class MyApplication(QMainWindow):
 
         # IF PASS SCAN
         if self.data_scan1 is not None:
+            is_found = None
             cmd_printer("SUCCESS", "PASS SCAN")
             logger.info("PASS SCAN")
             cmd_printer("SUCCESS", f"Data SN: {self.data_scan1}")
 
             cmd_printer("INFO", "----------- SEND TO SFC -----------")
             logger.info("----------- SEND TO SFC -----------")
+
             stime_connect = time.time()
-            new_screenshot = None
-            old_screenshot = None
 
             # capture old screenshot
-            old_screenshot = capture_screen(self.MES_SN_INPUT_POSITION)
-            # cv2.imwrite("./temp/old_screenshot.png", old_screenshot)
+            prev_screenshot = capture_screen(self.MES_SN_INPUT_POSITION)
+            # cv2.imshow("snapshot", prev_screenshot)
+            # cv2.waitKey(2)
+            cv2.imwrite("./temp/prev_screenshot.png", prev_screenshot)
             # send sn data
             send_data_to_mes(self, self.data_scan1)
+            time.time(self.TIME_SLEEP)
             cmd_printer("INFO", f"--> Send Data SN:  {self.data_scan1}")
             logger.info(f"--> Send Data SN:  {self.data_scan1}")
 
@@ -145,12 +148,9 @@ class MyApplication(QMainWindow):
             stime = time.time()
 
             while time.time() - stime <= self.MAX_WAIT:
-                new_screenshot = capture_screen(self.MES_SN_INPUT_POSITION)
-
-                is_matching = compare_image_ssim(old_screenshot, new_screenshot)
-                if is_matching == False:
+                is_found = lookup_screenshot(self, prev_screenshot)
+                if is_found == False or is_found == None:
                     # PASS MES
-                    cv2.imwrite("./temp/new_screenshot.png", new_screenshot)
                     self.THREAD_PLC.send_signal_to_plc(b"1")
 
                     cmd_printer("SUCCESS", "PASS MES")
@@ -159,9 +159,7 @@ class MyApplication(QMainWindow):
                         self.state_ui = True
                     break
 
-            if is_matching == True:
-                cv2.imwrite("./temp/new_screenshot.png", new_screenshot)
-                # xxxxxxxxxxxxxxxxx
+            if is_found == True:
                 self.THREAD_PLC.send_signal_to_plc(b"2")
                 self.is_processing = False
                 cmd_printer("ERROR", "SIGNAL FAIL CHECK CODE DATA FROM mes")
