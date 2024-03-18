@@ -97,11 +97,13 @@ def read_config(self):
     self.MES_BACKEND = config["MES"]["BACKEND"]
 
     self.MES_SN_INPUT_ID = config["MES"]["MES_SN_INPUT_ID"]
-    self.MES_SN_INPUT_POSITION = json.loads(config["MES"]["MES_SN_INPUT_POSITION"])
+    self.MES_MOVEOUTQTY_POSITION = json.loads(config["MES"]["MES_MOVEOUTQTY_POSITION"])
     self.MES_AREA_SNAPSHOT_POSITION = json.loads(
         config["MES"]["MES_AREA_SNAPSHOT_POSITION"]
     )
     self.MES_COMPARE_CONFIDENCE = float(config["MES"]["MES_COMPARE_CONFIDENCE"])
+    self.BLOCK_SIZE_1 = int(config["THRESH"]["BLOCK_SIZE_1"])
+    self.C1 = int(config["THRESH"]["C1"])
 
 
 handle_remove_old_folders()

@@ -26,6 +26,7 @@ import os
 import numpy as np
 from pylibdmtx.pylibdmtx import decode
 import zxingcpp
+from pyzbar.pyzbar import decode, ZBarSymbol
 import configparser
 
 GUI = sys.path.append("./GUI/")

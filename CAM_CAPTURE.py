@@ -84,16 +84,17 @@ class MyApplication(QMainWindow):
         stime_scan = time.time()
         while i < self.SCAN_LIMIT:
             i = i + 1
-            gray_frame = process_frame(frame=self.frame1)
-            self.data_scan1 = read_dmt_zxingcpp(gray_frame)
+            gray_frame = process_frame(self, frame=self.frame1)
+            self.data_scan1 = read_code_wechat(gray_frame)
+            # self.data_scan1 = "xxxxxxxxxx"
             if self.data_scan1:
                 break
-            if self.data_scan1 is None:
-                processed = process_frame(frame=self.frame1)
-                self.data_scan1 = read_dmt_loop(self, processed)
-                # self.data_scan1 = "xxxxxxxxxx"
-                if self.data_scan1:
-                    break
+            # if self.data_scan1 is None:
+            #     processed = process_frame(self, frame=self.frame1)
+            #     self.data_scan1 = read_looper(self, processed)
+            #     self.data_scan1 = "xxxxxxxxxx"
+            #     if self.data_scan1:
+            #         break
         cmd_printer("INFO", "--> RESULT SCAN")
         logger.info("--> RESULT SCAN")
         cmd_printer("INFO", f"-----> spends {(time.time() - stime_scan)}s to read code")
@@ -123,33 +124,41 @@ class MyApplication(QMainWindow):
 
         # IF PASS SCAN
         if self.data_scan1 is not None:
-            is_found = None
+            is_match = None
+
             cmd_printer("SUCCESS", "PASS SCAN")
             logger.info("PASS SCAN")
             cmd_printer("SUCCESS", f"Data SN: {self.data_scan1}")
 
             cmd_printer("INFO", "----------- SEND TO SFC -----------")
             logger.info("----------- SEND TO SFC -----------")
-
             stime_connect = time.time()
 
-            # capture old screenshot
-            prev_screenshot = capture_screen(self.MES_SN_INPUT_POSITION)
-            # cv2.imshow("snapshot", prev_screenshot)
-            # cv2.waitKey(2)
+            # capture qty image and convert to string
+            prev_screenshot = capture_by_position(self.MES_MOVEOUTQTY_POSITION)
             cv2.imwrite("./temp/prev_screenshot.png", prev_screenshot)
-            # send sn data
+            prev_qty = convert_image_to_string(prev_screenshot)
+            print(f"prev qty: {prev_qty}")
+
             send_data_to_mes(self, self.data_scan1)
-            time.time(self.TIME_SLEEP)
+            time.sleep(self.TIME_SLEEP)
+
             cmd_printer("INFO", f"--> Send Data SN:  {self.data_scan1}")
             logger.info(f"--> Send Data SN:  {self.data_scan1}")
 
-            # caputure new screenshot
             stime = time.time()
+            # caputure new screenshot
 
             while time.time() - stime <= self.MAX_WAIT:
-                is_found = lookup_screenshot(self, prev_screenshot)
-                if is_found == False or is_found == None:
+                new_screenshot = capture_by_position(self.MES_MOVEOUTQTY_POSITION)
+                cv2.imwrite("./temp/new_screenshot.png", new_screenshot)
+                new_qty = convert_image_to_string(new_screenshot)
+                print(f"new qty: {new_qty}")
+
+                # is_match is boolean varialbe, it's result of compare two strings
+                is_match = prev_qty == new_qty
+
+                if is_match == False:
                     # PASS MES
                     self.THREAD_PLC.send_signal_to_plc(b"1")
 
@@ -159,7 +168,7 @@ class MyApplication(QMainWindow):
                         self.state_ui = True
                     break
 
-            if is_found == True:
+            if is_match == True or is_match is None:
                 self.THREAD_PLC.send_signal_to_plc(b"2")
                 self.is_processing = False
                 cmd_printer("ERROR", "SIGNAL FAIL CHECK CODE DATA FROM mes")
